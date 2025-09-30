@@ -25,120 +25,156 @@ class HomeBody extends StatelessWidget {
         ),
       ),
       child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: RefreshIndicator(
-                  color: AppColors.blueDarkColor,
-                  onRefresh: () async {
-                    final state = context.read<HomeCubit>().state;
+        child: Column(
+          children: [
+            Expanded(
+              child: RefreshIndicator(
+                color: AppColors.blueDarkColor,
+                onRefresh: () async {
+                  final state = context.read<HomeCubit>().state;
+                  if (state.selectedCountry == null ||
+                      state.selectedCountry!.isEmpty) {
+                    return;
+                  }
+                  context.read<HomeCubit>().fetchCurrentWeather(
+                    state.selectedCountry!,
+                  );
+                },
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return const LoadingWidget();
+                    }
                     if (state.selectedCountry == null ||
                         state.selectedCountry!.isEmpty) {
-                      return;
+                      return const UnSelectCityWidget();
                     }
-                    context.read<HomeCubit>().fetchCurrentWeather(
-                      state.selectedCountry!,
+
+                    return ListView(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20.h,
+                        horizontal: 20.w,
+                      ),
+                      children: [
+
+
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 8.h, horizontal: 13.w),
+                          margin: EdgeInsets.only(bottom: 25.h),
+                          decoration: BoxDecoration(
+                            color: AppColors.blueDarkColor.withValues(alpha: 0.4),
+                            borderRadius: BorderRadius.circular(20.r),
+                            border: Border.all(
+                              color: AppColors.whiteColor.withValues(alpha: 0.2),
+                              width: 1,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.blackColor.withValues(alpha: .15),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.calendar_today,
+                                size: 20.sp,
+                                color: AppColors.whiteColor.withValues(alpha: .8),
+                              ),
+                              SizedBox(width: 10.w),
+                              Text(
+                                context
+                                    .read<HomeCubit>()
+                                    .formatDate(state.currentWeather?.dt),
+                                style: AppTextStyles.style20WhiteW500.copyWith(
+                                  color: AppColors.whiteColor,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Center(
+                          child: Text(
+                            "${state.currentWeather!.main?.temp?.toInt() ?? '--'}°",
+                            style: AppTextStyles.style50WhiteW700,
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+
+                        Center(
+                          child: Text(
+                            state.selectedCountry ?? AppStrings.selectACity,
+                            style: AppTextStyles.style22WhiteW500,
+                          ),
+                        ),
+
+                        SizedBox(height: 15.h),
+
+                        Center(
+                          child: Column(
+                            children: [
+                              if (state.currentWeather != null)
+                                Image.network(
+                                  "https://openweathermap.org/img/wn/${state.currentWeather!.weather?[0].icon}@2x.png",
+                                  width: 120.w,
+                                  height: 120.h,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Icon(
+                                      Icons.wb_sunny,
+                                      size: 80.sp,
+                                      color: AppColors.whiteColor,
+                                    );
+                                  },
+                                )
+                              else
+                                Icon(
+                                  Icons.wb_sunny,
+                                  size: 80.sp,
+                                  color: AppColors.whiteColor,
+                                ),
+                              SizedBox(height: 8.h),
+                              Text(
+                                state.currentWeather?.weather?[0].description ??
+                                    AppStrings.clearSky,
+                                style: AppTextStyles.style20WhiteW500,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(height: 35.h),
+
+                        CardInfo(weather: state.currentWeather),
+
+                        SizedBox(height: 20.h),
+
+                        Padding(
+                          padding: EdgeInsets.all(10.r),
+                          child: Builder(
+                            builder: (context) {
+                              final cubit = context.read<HomeCubit>();
+                              return SelectCountryWidget(
+                                cubit: cubit,
+                                title: AppStrings.changeCity,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     );
                   },
-                  child: BlocBuilder<HomeCubit, HomeState>(
-                    builder: (context, state) {
-                      if (state.isLoading) {
-                        return const LoadingWidget();
-                      }
-                      if (state.selectedCountry == null ||
-                          state.selectedCountry!.isEmpty) {
-                        return const UnSelectCityWidget();
-                      }
-                      return ListView(
-                        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w,
-                        ),
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 80.h,vertical: 20.h),
-                            padding: EdgeInsets.all(5.r),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppColors.blueDarkColor,
-                              borderRadius: BorderRadius.circular(10.r),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.blackColor.withValues(alpha: 0.2),
-                                  blurRadius: 10.r,
-                                  offset: const Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            child: Text(
-                              context.read<HomeCubit>().formatDate(state.currentWeather?.dt),
-                              style: AppTextStyles.style20WhiteW500,
-                            ),
-                          ),
-
-                          Center(
-                            child: Text(
-                              "${state.currentWeather!.main?.temp?.toInt() ?? '--'}°",
-                              style: AppTextStyles.style50WhiteW700,
-                            ),
-                          ),
-                          Center(
-                            child: Text(
-                              state.selectedCountry ?? AppStrings.selectACity,
-                              style: AppTextStyles.style22WhiteW500,
-                            ),
-                          ),
-                          Center(
-                            child: Column(
-                              children: [
-                                if (state.currentWeather != null)
-                                  Image.network(
-                                    "https://openweathermap.org/img/wn/${state.currentWeather!.weather?[0].icon}@2x.png",
-                                    width: 130.w,
-                                    height: 130.h,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Icon(
-                                        Icons.wb_sunny,
-                                        size: 80.sp,
-                                        color: AppColors.whiteColor,
-                                      );
-                                    },
-                                  )
-                                else
-                                  Icon(
-                                    Icons.wb_sunny,
-                                    size: 80.sp,
-                                    color: AppColors.whiteColor,
-                                  ),
-                                SizedBox(height: 10.h),
-                                Text(
-                                  state.currentWeather?.weather?[0]
-                                      .description ?? AppStrings.clearSky,
-                                  style: AppTextStyles.style20WhiteW500,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 40.h),
-                          CardInfo(weather: state.currentWeather),
-                          Padding(
-                            padding: EdgeInsets.all(20.r),
-                            child: Builder(
-                              builder: (context) {
-                                final cubit = context.read<HomeCubit>();
-                                return SelectCountryWidget(
-                                  cubit: cubit,
-                                  title: AppStrings.changeCity,
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
                 ),
               ),
-            ],
-          )
+            ),
+          ],
+        ),
       ),
     );
   }
