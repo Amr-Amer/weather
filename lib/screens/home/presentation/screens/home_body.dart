@@ -119,22 +119,22 @@ class HomeBody extends StatelessWidget {
                           ),
                           SizedBox(height: 40.h),
                           CardInfo(weather: state.currentWeather),
+                          Padding(
+                            padding: EdgeInsets.all(20.r),
+                            child: Builder(
+                              builder: (context) {
+                                final cubit = context.read<HomeCubit>();
+                                return SelectCountryWidget(
+                                  cubit: cubit,
+                                  title: AppStrings.changeCity,
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       );
                     },
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(20.r),
-                child: Builder(
-                  builder: (context) {
-                    final cubit = context.read<HomeCubit>();
-                    return SelectCountryWidget(
-                      cubit: cubit,
-                      title: AppStrings.changeCity,
-                    );
-                  },
                 ),
               ),
             ],

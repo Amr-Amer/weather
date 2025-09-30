@@ -1,7 +1,7 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:weather/screens/home/presentation/manager/home_cubit.dart';
-import 'package:weather/screens/repository/home_repo.dart';
+import 'package:weather/screens/home/repository/home_repo.dart';
 import 'package:weather/services/weather_service.dart';
 
 final sl = GetIt.instance;

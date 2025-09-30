@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:weather/core/navigation/app_routes.dart';
+import 'package:weather/screens/forecast/presentation/screens/forecast_screen.dart';
 import 'package:weather/screens/home/presentation/screens/home_screen.dart';
 
 class AppNavigationRoutes {
@@ -14,6 +15,10 @@ class AppNavigationRoutes {
     switch (settings.name) {
       case AppRoutes.home:
         return _route(const HomeScreen());
+      case AppRoutes.forecast:
+        return _route(const ForecastScreen());
+        // case AppRoutes.favorites:
+        //   return _route(const FavoritesScreen());
       default:
         return CupertinoPageRoute(builder: (_) => Container());
     }

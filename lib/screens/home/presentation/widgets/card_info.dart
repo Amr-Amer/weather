@@ -14,7 +14,7 @@ class CardInfo extends StatelessWidget {
     return Card(
       color: AppColors.blueDarkColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(15.r)),
+        borderRadius: BorderRadius.all(Radius.circular(20.r)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

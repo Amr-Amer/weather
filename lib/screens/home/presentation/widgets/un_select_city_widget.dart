@@ -29,7 +29,7 @@ class UnSelectCityWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: AppTextStyles.style20BlueDarkW700,
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 50.h),
               Builder(
                 builder: (context) {
                   final cubit = context.read<HomeCubit>();

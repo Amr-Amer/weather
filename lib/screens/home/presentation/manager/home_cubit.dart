@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/screens/home/presentation/manager/home_state.dart';
-import 'package:weather/screens/repository/home_repo.dart';
+import 'package:weather/screens/home/repository/home_repo.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo _homeRepo;
