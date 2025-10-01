@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/constants/app_colors.dart';
 import 'package:weather/core/constants/app_text_styles.dart';
-import 'package:weather/models/forcast.dart';
+import 'package:weather/models/forecast_model.dart';
 
 class CardList extends StatelessWidget {
   final List<ListElement> days;

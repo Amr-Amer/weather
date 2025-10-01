@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/core/constants/app_strings.dart';
@@ -22,10 +21,11 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return Scaffold(
+            resizeToAvoidBottomInset: true,
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               centerTitle: true,
-              title: const Text(AppStrings.appName),
+              title: const Text(AppStrings.home),
               backgroundColor: Colors.transparent,
               elevation: 0,
               actions: [
@@ -43,21 +43,9 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () {
                         if (selectedCity != null) {
                           if (isSaved) {
-
                             context.read<CitiesCubit>().removeCity(selectedCity);
-                            if (kDebugMode) {
-                              print("$selectedCity removed from favorites");
-                            }
                           } else {
-
                             context.read<CitiesCubit>().addCity(selectedCity);
-                            if (kDebugMode) {
-                              print("$selectedCity added to favorites");
-                            }
-                          }
-                        } else {
-                          if (kDebugMode) {
-                            print("⚠️ selectedCity is null");
                           }
                         }
                       },
@@ -67,7 +55,6 @@ class HomeScreen extends StatelessWidget {
                     : const SizedBox(),
               ],
             ),
-
             drawer: state.currentWeather != null
                 ? const Drawer(child: SideMenu())
                 : null,

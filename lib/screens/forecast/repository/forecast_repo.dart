@@ -1,5 +1,5 @@
 import 'package:weather/core/constants/app_strings.dart';
-import 'package:weather/models/forcast.dart';
+import 'package:weather/models/forecast_model.dart';
 import 'package:weather/services/failure.dart';
 import 'package:weather/services/weather_service.dart';
 import 'package:dartz/dartz.dart';

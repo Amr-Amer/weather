@@ -51,42 +51,47 @@ class _CityPickerWidgetState extends State<CityPickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        TextField(
-          controller: searchController,
-          decoration: InputDecoration(
-            hintText: AppStrings.search,
-            prefixIcon: const Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12.r),
+    return SingleChildScrollView(
+      reverse: true,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            keyboardType: TextInputType.text,
+            clipBehavior: Clip.none,
+            controller: searchController,
+            decoration: InputDecoration(
+              hintText: AppStrings.search,
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
             ),
           ),
-        ),
-        SizedBox(height: 8.h),
-        SizedBox(
-          height: 500.h,
-          child: ListView.builder(
-            itemCount: filteredCities.length,
-            itemBuilder: (context, index) {
-              final city = filteredCities[index];
-              return ListTile(
-                leading: Text(
-                  getFlagEmoji(city.country),
-                  style: AppTextStyles.style22WhiteW500,
-                ),
-                title: Text(city.name),
-                subtitle: Text(city.country),
-                onTap: () {
-                  widget.onCitySelected(city);
-                  Navigator.pop(context);
-                },
-              );
-            },
+          SizedBox(height: 8.h),
+          SizedBox(
+            height: 500.h,
+            child: ListView.builder(
+              itemCount: filteredCities.length,
+              itemBuilder: (context, index) {
+                final city = filteredCities[index];
+                return ListTile(
+                  leading: Text(
+                    getFlagEmoji(city.country),
+                    style: AppTextStyles.style22WhiteW500,
+                  ),
+                  title: Text(city.name),
+                  subtitle: Text(city.country),
+                  onTap: () {
+                    widget.onCitySelected(city);
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

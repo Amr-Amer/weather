@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/constants/app_strings.dart';
 import 'package:weather/core/constants/app_text_styles.dart';
-import 'package:weather/models/forcast.dart';
+import 'package:weather/models/forecast_model.dart';
 import 'package:weather/screens/home/presentation/widgets/card_info.dart';
 
 class SelectedDayDetails extends StatelessWidget {

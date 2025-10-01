@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:weather/models/forcast.dart';
+import 'package:weather/models/forecast_model.dart';
 import 'package:weather/screens/forecast/repository/forecast_repo.dart';
 part 'forecast_state.dart';
 

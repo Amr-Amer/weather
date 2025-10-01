@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather/core/constants/app_colors.dart';
+import 'package:weather/core/constants/app_strings.dart';
 import 'package:weather/core/constants/app_text_styles.dart';
 import 'package:weather/screens/forecast/presentation/manager/forecast_cubit.dart';
 import 'package:weather/screens/forecast/presentation/widgets/card_list.dart';
@@ -32,8 +33,10 @@ class ForecastBody extends StatelessWidget {
         child: BlocBuilder<ForecastCubit, ForecastState>(
           builder: (context, state) {
             if (state.isLoading) return const LoadingWidget();
-            if (state.forecast == null) return const Center(child: Text("No data", style: TextStyle(color: Colors.white)));
-
+            if (state.forecast == null) {
+              return Center(
+                  child: Text(AppStrings.noDataAvailable, style: AppTextStyles.style22BlueDarkW700));
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
