@@ -51,7 +51,7 @@ class WeatherService {
           "q": city,
           "appid": AppConstants.apiKey,
           "units": "metric",
-          "lang": "ar",
+          "lang": "en",
         },
       );
       if (kDebugMode) {

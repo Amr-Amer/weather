@@ -14,9 +14,9 @@ class AppNavigationRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.home:
-        return _route(const HomeScreen());
+        return _route(const HomeScreen(),arguments: settings.arguments);
       case AppRoutes.forecast:
-        return _route(const ForecastScreen());
+        return _route(const ForecastScreen(),arguments: settings.arguments);
         // case AppRoutes.favorites:
         //   return _route(const FavoritesScreen());
       default:

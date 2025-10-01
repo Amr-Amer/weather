@@ -1,30 +1,30 @@
 part of 'forecast_cubit.dart';
 
-sealed class ForecastState {}
+class ForecastState {
+  final bool isLoading;
+  final String? errorMessage;
+  final ForecastModel? forecast;
+  final ListElement? selectedDay;
 
-final class ForecastInitial extends ForecastState {}
-
-final class ForecastLoading extends ForecastState {}
-
-final class ForecastLoaded extends ForecastState {
-  final List<ForecastDay> days;
-  final ForecastDay? selectedDay;
-
-  ForecastLoaded({required this.days, this.selectedDay});
-}
-final class ForecastError extends ForecastState {
-  final String message;
-  ForecastError(this.message);
-}
-
-class ForecastDay {
-  final String day;
-  final String iconUrl;
-  final int temp;
-
-  ForecastDay({
-    required this.day,
-    required this.iconUrl,
-    required this.temp,
+  ForecastState({
+    this.isLoading = false,
+    this.errorMessage,
+    this.forecast,
+    this.selectedDay,
   });
+
+  ForecastState copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    ForecastModel? forecast,
+    ListElement? selectedDay,
+  }) {
+    return ForecastState(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      forecast: forecast ?? this.forecast,
+      selectedDay: selectedDay ?? this.selectedDay,
+    );
+  }
 }
+

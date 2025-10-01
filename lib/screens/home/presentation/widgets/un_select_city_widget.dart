@@ -105,8 +105,11 @@ class _UnSelectCityWidgetState extends State<UnSelectCityWidget>
                     builder: (context) {
                       final cubit = context.read<HomeCubit>();
                       return SelectCountryWidget(
-                        cubit: cubit,
-                        title: AppStrings.selectACity,
+                        title: AppStrings.changeCity,
+                        initialCountry: cubit.state.selectedCountry,
+                        onCountrySelected: (newCountry) {
+                          cubit.selectCountry(newCountry);
+                        },
                       );
                     },
                   ),

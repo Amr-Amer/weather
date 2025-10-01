@@ -58,7 +58,6 @@ class HomeBody extends StatelessWidget {
                       ),
                       children: [
 
-
                         Container(
                           padding: EdgeInsets.symmetric(
                               vertical: 8.h, horizontal: 13.w),
@@ -157,7 +156,14 @@ class HomeBody extends StatelessWidget {
 
                         SizedBox(height: 35.h),
 
-                        CardInfo(weather: state.currentWeather),
+                        // CardInfo(weather: state.currentWeather),
+
+                        CardInfo(
+                          humidity: state.currentWeather?.main?.humidity,
+                          windSpeed: state.currentWeather?.wind?.speed,
+                          feelsLike: state.currentWeather?.main?.feelsLike,
+                          pressure: state.currentWeather?.main?.pressure,
+                        ),
 
                         SizedBox(height: 20.h),
 
@@ -167,8 +173,11 @@ class HomeBody extends StatelessWidget {
                             builder: (context) {
                               final cubit = context.read<HomeCubit>();
                               return SelectCountryWidget(
-                                cubit: cubit,
                                 title: AppStrings.changeCity,
+                                initialCountry: cubit.state.selectedCountry,
+                                onCountrySelected: (newCountry) {
+                                  cubit.selectCountry(newCountry);
+                                },
                               );
                             },
                           ),

@@ -1,29 +1,36 @@
 import 'package:bloc/bloc.dart';
+import 'package:weather/models/forcast.dart';
+import 'package:weather/screens/forecast/repository/forecast_repo.dart';
 part 'forecast_state.dart';
 
 class ForecastCubit extends Cubit<ForecastState> {
-  ForecastCubit() : super(ForecastInitial());
+  final ForecastRepo _forecastRepo;
 
-  Future<void> loadForecast() async {
-    emit(ForecastLoading());
+  ForecastCubit(this._forecastRepo) : super(ForecastState());
 
-    await Future.delayed(const Duration(seconds: 1));
+  Future<void> fetchForecast(String city) async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
 
-    final dummyData = [
-      ForecastDay(day: "Mon", iconUrl: "https://openweathermap.org/img/wn/10d.png", temp: 22),
-      ForecastDay(day: "Tue", iconUrl: "https://openweathermap.org/img/wn/01d.png", temp: 24),
-      ForecastDay(day: "Wed", iconUrl: "https://openweathermap.org/img/wn/04d.png", temp: 20),
-      ForecastDay(day: "Thu", iconUrl: "https://openweathermap.org/img/wn/09d.png", temp: 19),
-      ForecastDay(day: "Fri", iconUrl: "https://openweathermap.org/img/wn/02d.png", temp: 23),
-    ];
+    final result = await _forecastRepo.getForecast(city);
 
-    emit(ForecastLoaded(days: dummyData ));
+    result.fold(
+          (failure) {
+        emit(state.copyWith(
+          isLoading: false,
+          errorMessage: failure.message,
+        ));
+      },
+          (forecast) {
+        emit(state.copyWith(
+          forecast: forecast,
+          isLoading: false,
+        ));
+      },
+    );
   }
 
-  void selectDay(ForecastDay day) {
-    if (state is ForecastLoaded) {
-      final current = state as ForecastLoaded;
-      emit(ForecastLoaded(days: current.days, selectedDay: day));
-    }
+  void selectDay(ListElement day) {
+    emit(state.copyWith(selectedDay: day));
   }
 }
+

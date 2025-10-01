@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/core/constants/app_strings.dart';
@@ -12,10 +13,14 @@ class ForecastScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final country = ModalRoute.of(context)?.settings.arguments as String? ?? "Cairo";
+    if (kDebugMode) {
+      print("country: $country");
+    }
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl<HomeCubit>()),
-        BlocProvider(create: (context) => ForecastCubit()..loadForecast()),
+        BlocProvider(create: (context) => sl<ForecastCubit>()),
       ],
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -31,8 +36,10 @@ class ForecastScreen extends StatelessWidget {
             },
           ),
         ),
-        body: ForecastBody(),
+        body: ForecastBody(country: country),
       ),
     );
   }
 }
+
+
