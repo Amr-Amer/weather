@@ -11,6 +11,7 @@ abstract class AppColors {
   static const Color dimGray = Color(0xFFA0AEC0);
   static const Color gray1 = Color(0xFFF8F9FA);
   static const Color red = Color(0xFFE62222);
+  static const Color purple = Color(0xFFEA3799);
 
 
   static const List<Color> skyColors = [

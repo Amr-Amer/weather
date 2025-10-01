@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -108,11 +109,16 @@ class HomeBody extends StatelessWidget {
                         ),
                         SizedBox(height: 5.h),
 
-                        Center(
-                          child: Text(
-                            state.selectedCountry ?? AppStrings.selectACity,
-                            style: AppTextStyles.style22WhiteW500,
-                          ),
+                        AnimatedTextKit(
+                          animatedTexts: [
+                            TyperAnimatedText(
+                              speed: const Duration(milliseconds: 100),
+                              state.selectedCountry ?? AppStrings.selectACity,
+                              textAlign: TextAlign.center,
+                              textStyle: AppTextStyles.style25BlueDarkW700,
+                            ),
+                          ],
+                          totalRepeatCount: 1,
                         ),
 
                         SizedBox(height: 15.h),

@@ -37,6 +37,12 @@ class AppTextStyles {
     color: AppColors.blueDarkColor,
   );
 
+  static final style22BlueDarkW700 = TextStyle(
+    fontSize: 22.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.blueDarkColor,
+  );
+
   static final style20WhiteW500 = TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeight.w500,
@@ -48,6 +54,13 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.whiteColor,
   );
+
+  static final style25BlueDarkW700 = TextStyle(
+    fontSize: 25.sp,
+    fontWeight: FontWeight.w700,
+    color: AppColors.blueDarkColor,
+  );
+
 
   static final style50WhiteW700 = TextStyle(
     fontSize: 50.sp,
