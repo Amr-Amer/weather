@@ -21,7 +21,6 @@ class CardList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: days.length,
-        padding: EdgeInsets.symmetric(horizontal: 8.w),
         itemBuilder: (context, index) {
           final day = days[index];
           final date = day.dtTxt;

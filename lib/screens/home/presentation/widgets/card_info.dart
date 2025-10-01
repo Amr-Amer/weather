@@ -40,13 +40,14 @@ class CardInfo extends StatelessWidget {
 
   Widget _infoTile(String title, String value, String icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 5.r),
+      padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 5.r),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(icon, style: AppTextStyles.style22WhiteW500),
-          SizedBox(height: 5.h),
           Text(value, style: AppTextStyles.style18WhiteW600),
-          SizedBox(height: 4.h),
           Text(title, style: AppTextStyles.style14WhiteW500),
         ],
       ),

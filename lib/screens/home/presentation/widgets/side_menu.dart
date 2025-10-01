@@ -55,7 +55,7 @@ class SideMenu extends StatelessWidget {
           Icons.favorite,
               () {
             AppNavigationRoutes.pop();
-            AppNavigationRoutes.push(AppRoutes.favorites);
+            AppNavigationRoutes.push(AppRoutes.cities);
           },
         ),
       ],

@@ -18,6 +18,8 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      height: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: AppColors.skyColors,
@@ -53,8 +55,8 @@ class HomeBody extends StatelessWidget {
 
                     return ListView(
                       padding: EdgeInsets.symmetric(
-                        vertical: 20.h,
-                        horizontal: 20.w,
+                        vertical: 10.h,
+                        horizontal: 10.w,
                       ),
                       children: [
 
@@ -154,7 +156,7 @@ class HomeBody extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(height: 35.h),
+                        SizedBox(height: 30.h),
 
                         // CardInfo(weather: state.currentWeather),
 

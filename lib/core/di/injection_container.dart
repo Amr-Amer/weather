@@ -1,5 +1,6 @@
 
 import 'package:get_it/get_it.dart';
+import 'package:weather/screens/cities/presentation/manager/cities_cubit.dart';
 import 'package:weather/screens/forecast/presentation/manager/forecast_cubit.dart';
 import 'package:weather/screens/forecast/repository/forecast_repo.dart';
 import 'package:weather/screens/home/presentation/manager/home_cubit.dart';
@@ -13,19 +14,17 @@ Future<void> initializeDependencies() async {
 
   sl.registerLazySingleton(() => WeatherService());
 
-
   //TODO: Repository
   sl.registerLazySingleton<HomeRepo>(() => HomeRepo(sl()));
   sl.registerLazySingleton<ForecastRepo>(() => ForecastRepoImp(sl()));
 
 
   sl.registerLazySingleton(() =>
-      HomeCubit(
-        sl(),
-      ));
+      HomeCubit(sl(),));
 
   sl.registerLazySingleton(() =>
-      ForecastCubit(
-        sl(),
-      ));
+      ForecastCubit(sl(),));
+
+  sl.registerLazySingleton(() =>
+      CitiesCubit());
 }

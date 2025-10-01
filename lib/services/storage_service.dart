@@ -1,25 +1,32 @@
-import 'package:weather/models/city_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class FavoriteCityService {
-  static const String _keyFavoriteCity = "favorite_city";
+  static const String _keyFavoriteCities = "favorite_cities";
 
-  //TODO: Save favorite city
-  static Future<void> saveFavoriteCity(CityModel city) async {
+  static Future<void> addFavoriteCity(String city) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(_keyFavoriteCity, city.name);
+    final cities = prefs.getStringList(_keyFavoriteCities) ?? [];
+
+    if (!cities.contains(city)) {
+      cities.add(city);
+      await prefs.setStringList(_keyFavoriteCities, cities);
+    }
   }
 
-  //TODO: Get favorite city
-  static Future<String?> getFavoriteCity() async {
+  static Future<List<String>> getFavoriteCities() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyFavoriteCity);
+    return prefs.getStringList(_keyFavoriteCities) ?? [];
   }
 
-  //TODO: Remove favorite city
-  static Future<void> removeFavoriteCity() async {
+  static Future<void> removeFavoriteCity(String cityName) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.remove(_keyFavoriteCity);
+    final cities = prefs.getStringList(_keyFavoriteCities) ?? [];
+    cities.remove(cityName);
+    await prefs.setStringList(_keyFavoriteCities, cities);
+  }
+
+  static Future<void> clearFavoriteCities() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_keyFavoriteCities);
   }
 }

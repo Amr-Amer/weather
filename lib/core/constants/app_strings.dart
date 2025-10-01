@@ -10,6 +10,9 @@ abstract class AppStrings {
   static const String favorites = "Favorites";
   static const String pleaseSelectADayForReviewWeather = "Please Select A Day \n For Review Weather...";
   static const String noDataAvailable = "No Data Available...";
+  static const String noFavoriteCitiesYet = "No favorite cities yet...";
+  static const String favoriteCities = "Favorite Cities";
+  static const String deleteAll = "Delete All";
 
 
 }

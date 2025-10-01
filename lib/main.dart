@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather/core/bloc_observer/bloc_observer.dart';
 import 'package:weather/core/constants/app_colors.dart';
 import 'package:weather/core/constants/app_strings.dart';
 import 'package:weather/core/di/injection_container.dart';
 import 'package:weather/core/navigation/app_navigator_routes.dart';
 import 'package:weather/core/navigation/app_routes.dart';
-import 'package:weather/screens/home/presentation/screens/home_screen.dart';
 
 void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
 
   if (kDebugMode) {
     print('1. Initializing Bloc Observer...');
@@ -23,7 +25,8 @@ void main() async {
   }
   await initializeDependencies();
 
-  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
+
   runApp(const MyApp());
 }
 

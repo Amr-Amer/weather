@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/core/constants/app_strings.dart';
 import 'package:weather/core/di/injection_container.dart';
+import 'package:weather/screens/cities/presentation/manager/cities_cubit.dart';
 import 'package:weather/screens/home/presentation/manager/home_cubit.dart';
 import 'package:weather/screens/home/presentation/manager/home_state.dart';
 import 'package:weather/screens/home/presentation/screens/home_body.dart';
@@ -12,24 +14,63 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<HomeCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<HomeCubit>()),
+        BlocProvider(create: (_) => sl<CitiesCubit>()),
+      ],
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
               centerTitle: true,
-              title: Text(AppStrings.appName),
+              title: const Text(AppStrings.appName),
               backgroundColor: Colors.transparent,
               elevation: 0,
+              actions: [
+                state.currentWeather != null
+                    ? BlocBuilder<CitiesCubit, List<String>>(
+                  builder: (context, cities) {
+                    final selectedCity = state.selectedCity?.name;
+                    final isSaved = selectedCity != null && cities.contains(selectedCity);
+
+                    return IconButton(
+                      icon: Icon(
+                        isSaved ? Icons.favorite : Icons.favorite_border,
+                        color: isSaved ? Colors.red : Colors.white,
+                      ),
+                      onPressed: () {
+                        if (selectedCity != null) {
+                          if (isSaved) {
+
+                            context.read<CitiesCubit>().removeCity(selectedCity);
+                            if (kDebugMode) {
+                              print("$selectedCity removed from favorites");
+                            }
+                          } else {
+
+                            context.read<CitiesCubit>().addCity(selectedCity);
+                            if (kDebugMode) {
+                              print("$selectedCity added to favorites");
+                            }
+                          }
+                        } else {
+                          if (kDebugMode) {
+                            print("⚠️ selectedCity is null");
+                          }
+                        }
+                      },
+                    );
+                  },
+                )
+                    : const SizedBox(),
+              ],
             ),
 
             drawer: state.currentWeather != null
                 ? const Drawer(child: SideMenu())
                 : null,
-
             body: const HomeBody(),
           );
         },
