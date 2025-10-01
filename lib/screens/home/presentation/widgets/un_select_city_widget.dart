@@ -28,7 +28,7 @@ class _UnSelectCityWidgetState extends State<UnSelectCityWidget>
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 500),
     );
 
     _slideAnimation =
@@ -85,7 +85,6 @@ class _UnSelectCityWidgetState extends State<UnSelectCityWidget>
 
             const Spacer(flex: 1),
 
-
             Expanded(
               flex: 2,
               child: Align(
@@ -105,10 +104,11 @@ class _UnSelectCityWidgetState extends State<UnSelectCityWidget>
                     builder: (context) {
                       final cubit = context.read<HomeCubit>();
                       return SelectCountryWidget(
-                        title: AppStrings.changeCity,
-                        initialCountry: cubit.state.selectedCountry,
-                        onCountrySelected: (newCountry) {
-                          cubit.selectCountry(newCountry);
+                        title: cubit.state.selectedCity?.name ?? AppStrings.selectACity,
+                        initialCity: cubit.state.selectedCity,
+                        onCitySelected: (city) {
+                          cubit.selectCity(city);
+                          setState(() {});
                         },
                       );
                     },

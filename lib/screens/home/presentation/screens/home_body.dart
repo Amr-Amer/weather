@@ -33,12 +33,12 @@ class HomeBody extends StatelessWidget {
                 color: AppColors.blueDarkColor,
                 onRefresh: () async {
                   final state = context.read<HomeCubit>().state;
-                  if (state.selectedCountry == null ||
-                      state.selectedCountry!.isEmpty) {
+                  if (state.selectedCity == null ||
+                      state.selectedCity!.name.isEmpty) {
                     return;
                   }
                   context.read<HomeCubit>().fetchCurrentWeather(
-                    state.selectedCountry!,
+                    state.selectedCity!.name,
                   );
                 },
                 child: BlocBuilder<HomeCubit, HomeState>(
@@ -46,8 +46,8 @@ class HomeBody extends StatelessWidget {
                     if (state.isLoading) {
                       return const LoadingWidget();
                     }
-                    if (state.selectedCountry == null ||
-                        state.selectedCountry!.isEmpty) {
+                    if (state.selectedCity?.name == null ||
+                        state.selectedCity!.name.isEmpty) {
                       return const UnSelectCityWidget();
                     }
 
@@ -112,7 +112,7 @@ class HomeBody extends StatelessWidget {
                           animatedTexts: [
                             TyperAnimatedText(
                               speed: const Duration(milliseconds: 100),
-                              state.selectedCountry ?? AppStrings.selectACity,
+                              state.selectedCity?.name ?? AppStrings.selectACity,
                               textAlign: TextAlign.center,
                               textStyle: AppTextStyles.style25BlueDarkW700,
                             ),
@@ -173,12 +173,13 @@ class HomeBody extends StatelessWidget {
                             builder: (context) {
                               final cubit = context.read<HomeCubit>();
                               return SelectCountryWidget(
-                                title: AppStrings.changeCity,
-                                initialCountry: cubit.state.selectedCountry,
-                                onCountrySelected: (newCountry) {
-                                  cubit.selectCountry(newCountry);
+                                title: cubit.state.selectedCity?.name ?? AppStrings.selectACity,
+                                initialCity: cubit.state.selectedCity,
+                                onCitySelected: (city) {
+                                  cubit.selectCity(city);
                                 },
                               );
+
                             },
                           ),
                         ),

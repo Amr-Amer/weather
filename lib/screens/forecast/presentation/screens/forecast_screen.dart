@@ -13,9 +13,10 @@ class ForecastScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final country = ModalRoute.of(context)?.settings.arguments as String? ?? "Cairo";
+
+    final cityName = ModalRoute.of(context)?.settings.arguments as String? ?? "Cairo";
     if (kDebugMode) {
-      print("country: $country");
+      print("City Name: $cityName");
     }
     return MultiBlocProvider(
       providers: [
@@ -36,7 +37,7 @@ class ForecastScreen extends StatelessWidget {
             },
           ),
         ),
-        body: ForecastBody(country: country),
+        body: ForecastBody(country: cityName),
       ),
     );
   }

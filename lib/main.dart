@@ -8,6 +8,7 @@ import 'package:weather/core/constants/app_colors.dart';
 import 'package:weather/core/constants/app_strings.dart';
 import 'package:weather/core/di/injection_container.dart';
 import 'package:weather/core/navigation/app_navigator_routes.dart';
+import 'package:weather/core/navigation/app_routes.dart';
 import 'package:weather/screens/home/presentation/screens/home_screen.dart';
 
 void main() async {
@@ -37,7 +38,6 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
             title: AppStrings.appName,
             debugShowCheckedModeBanner: false,
-            onGenerateRoute: AppNavigationRoutes.generateRoute,
             navigatorKey: AppNavigationRoutes.navigatorState,
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(
@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
               textTheme:  GoogleFonts.cairoTextTheme(),
               useMaterial3: true,
             ),
-            home: HomeScreen()
+          initialRoute: AppRoutes.home,
+          onGenerateRoute: AppNavigationRoutes.generateRoute,
         );
       },
     );

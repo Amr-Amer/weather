@@ -34,13 +34,10 @@ class ForecastBody extends StatelessWidget {
             if (state.isLoading) return const LoadingWidget();
             if (state.forecast == null) return const Center(child: Text("No data", style: TextStyle(color: Colors.white)));
 
-            final days = state.forecast!.list;
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
-                  flex: 1,
                   child: AnimatedTextKit(
                     animatedTexts: [
                       TyperAnimatedText(
@@ -59,9 +56,11 @@ class ForecastBody extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   child: CardList(
-                    days: days,
-                    onDaySelected: (day) => context.read<ForecastCubit>().selectDay(day),
-                  ),
+                    days: state.forecast?.list ?? [],
+                    onDaySelected: (day) {
+                      context.read<ForecastCubit>().selectDay(day);
+                    },
+                  )
                 ),
                 SizedBox(height: 30.h),
 

@@ -41,10 +41,10 @@ class SideMenu extends StatelessWidget {
               () {
             AppNavigationRoutes.pop();
             final homeCubit = context.read<HomeCubit>();
-            final selectedCountry = homeCubit.state.selectedCountry ?? "Cairo";
+            final selectedCity = homeCubit.state.selectedCity?.name ?? "Cairo";
             AppNavigationRoutes.push(
               AppRoutes.forecast,
-              arguments: selectedCountry,
+              arguments: selectedCity,
             );
           },
         ),

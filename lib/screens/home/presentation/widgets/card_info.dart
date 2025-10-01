@@ -27,6 +27,7 @@ class CardInfo extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _infoTile("Humidity", "${humidity ?? '--'}%", "💧"),
           _infoTile("Wind", "${windSpeed?.toInt() ?? '--'} km/h", "🌬️"),
@@ -39,11 +40,11 @@ class CardInfo extends StatelessWidget {
 
   Widget _infoTile(String title, String value, String icon) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20.r, horizontal: 5.r),
+      padding: EdgeInsets.symmetric(vertical: 10.r, horizontal: 5.r),
       child: Column(
         children: [
           Text(icon, style: AppTextStyles.style22WhiteW500),
-          SizedBox(height: 7.h),
+          SizedBox(height: 5.h),
           Text(value, style: AppTextStyles.style18WhiteW600),
           SizedBox(height: 4.h),
           Text(title, style: AppTextStyles.style14WhiteW500),

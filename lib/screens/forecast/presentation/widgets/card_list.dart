@@ -39,22 +39,35 @@ class CardList extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.r),
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("${date.day}/${date.month}", style: AppTextStyles.style16WhiteW500),
-                  SizedBox(height: 8.h),
-                  Image.network(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text("${date.day}/${date.month}", style: AppTextStyles.style16WhiteW500),
+                  ),
+                ),
+                SizedBox(height: 6.h),
+                Flexible(
+                  child: Image.network(
                     "https://openweathermap.org/img/wn/$icon@2x.png",
                     width: 40.w,
                     height: 40.h,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.white),
                   ),
-                  SizedBox(height: 8.h),
-                  Text("$temp°", style: AppTextStyles.style16WhiteW500),
-                ],
-              ),
-            ),
+                ),
+                SizedBox(height: 6.h),
+                Flexible(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text("$temp°", style: AppTextStyles.style16WhiteW500),
+                  ),
+                ),
+              ],
+            )
+
+          ),
           );
         },
       ),

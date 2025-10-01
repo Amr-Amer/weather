@@ -1,26 +1,27 @@
 import 'package:weather/models/weather_model.dart';
+import 'package:weather/models/city_model.dart';
 
 class HomeState {
-  final String? selectedCountry;
+  final CityModel? selectedCity;
   final WeatherModel? currentWeather;
   final bool isLoading;
   final String? errorMessage;
 
   HomeState({
-    this.selectedCountry,
+    this.selectedCity,
     this.currentWeather,
     this.isLoading = false,
     this.errorMessage,
   });
 
   HomeState copyWith({
-    String? selectedCountry,
+    CityModel? selectedCity,
     WeatherModel? currentWeather,
     bool? isLoading,
     String? errorMessage,
   }) {
     return HomeState(
-      selectedCountry: selectedCountry ?? this.selectedCountry,
+      selectedCity: selectedCity ?? this.selectedCity,
       currentWeather: currentWeather ?? this.currentWeather,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: errorMessage ?? this.errorMessage,
